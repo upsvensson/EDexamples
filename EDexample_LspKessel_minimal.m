@@ -4,14 +4,14 @@
 % loudspeaker. The loudspeaker is called "LspKessel" because the dimensions
 % are taken from the paper "A simple theory of cabinet edge diffraction" by
 % John Vanderkooy, in JAES 39, pp. 923-933, 1991. That paper presented BEM
-% calculations done by "Kessel".
+% calculations done by R.T. Kessel.
 %
-% A single point source is modeled, at a dstaince of 0.1 mm from the front
+% A single point source is modeled, at a distance of 0.01 mm from the front
 % baffle. A receiver position is at a distance of 10 m, on-axis. These
 % positions were also taken from the paper by Vanderkooy.
 %
 % One purpose with this example is to demonstrate a minimal problem, to get
-% started. A number of parameters are not shown here, but are given default
+% started. A number of parameters are not set in this file, but are given default
 % values, including:
 %   - diffraction order 15
 %   - number of edge points = number of Gauss-Legendre quadrature points = 16
@@ -26,6 +26,9 @@
 % run this file and the calculations will get started. A folder called
 % "results" will be created inside the folder where this m-file is stored,
 % and results files will end up in that "results" folder.
+% 
+% The last part of this script, below the "%%%%%%%%%%%%%%%%%%%%" line,
+% presents the results in a diagram.
 
 mfile = mfilename('fullpath');
 [infilepath,filestem] = fileparts(mfile);
@@ -47,7 +50,7 @@ planecorners = [   1     4     3     2
      1     5     8     4];
 
 geofiledata = struct('corners',corners,'planecorners',planecorners);
-Sindata = struct('coordinates',[0 0 0.0001]);
+Sindata = struct('coordinates',[0 0 0.00001]);
 Rindata = struct('coordinates',[0 0 10]);
 controlparameters = struct('frequencies',logspace(log10(50),log10(3000),100));
 filehandlingparameters = struct('outputdirectory',infilepath);
