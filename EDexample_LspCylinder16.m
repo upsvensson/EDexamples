@@ -28,7 +28,7 @@
 % and results files will end up in that "results" folder.
 % 
 % The last part of this script, below the "%%%%%%%%%%%%%%%%%%%%" line,
-% presents the results in a diagram.
+% presents the results in a diagram and plots the model in a separate window.
 
 mfile = mfilename('fullpath');
 [infilepath,filestem] = fileparts(mfile);
@@ -59,6 +59,7 @@ eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filest
 measdistance = norm(Sindata.coordinates-Rindata.coordinates)
 tftot = (tfdirect + tfgeom + tfdiff + tfinteqdiff)*measdistance;
 
+figure
 semilogx(controlparameters.frequencies,20*log10(abs(tftot)),'-o')
 xlabel('Frequency   [Hz]')
 ylabel('TF magnitude re. 1m   [dB]')
@@ -66,3 +67,6 @@ title('Frequency response of a cylindrical loudspeaker')
 grid
 axis([100 4000 -10 15])
 
+figure
+eddatafile = [infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_eddata.mat'];
+EDplotmodel(eddatafile,1+2)
