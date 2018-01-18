@@ -46,7 +46,7 @@ n1 = 6;
 n2 = 6;
 planenvecs = planedata.planeeqs(:,1:3);
 for ii = 1:6
-   [patchcornercoords,patchmidcoords,areas] = GEOdivrect(corners(planecorners(ii,1),:),corners(planecorners(ii,2),:),corners(planecorners(ii,3),:),corners(planecorners(ii,4),:),n1,n2);     
+   [patchcornercoords,patchmidcoords,areas] = EDdivrect(corners(planecorners(ii,1),:),corners(planecorners(ii,2),:),corners(planecorners(ii,3),:),corners(planecorners(ii,4),:),n1,n2);     
    nvec = planenvecs(ii,:);
    patchmidcoords = patchmidcoords + 0.0001*nvec(ones(n1*n2,1),:);
    patchpoints = [patchpoints;patchmidcoords];
@@ -71,7 +71,7 @@ umono_normal_patch = 0;
 patchquadraturepoints = patchpoints;
 % plot3(patchquadraturepoints(1:3,1),patchquadraturepoints(1:3,2),patchquadraturepoints(1:3,3),'*')
 % hold on
-[distances,cosfi] = GEOcalccosfi(internalmonopole,patchquadraturepoints,patchnvecs);
+[distances,cosfi] = EDcalccosfi(internalmonopole,patchquadraturepoints,patchnvecs);
 pmono_patch = exp(-1i*k*distances)./distances;
 umono_radial_patch = pmono_patch/envdata.cair/envdata.rhoair.*(1 + 1./(1i*k*distances));
 umono_normal_patch =  quadweights(1)*umono_radial_patch.*cosfi;
@@ -81,7 +81,7 @@ for ii = 1:4
     patchquadraturepoints = patchpoints + quadshift*(patchcorners(:,[1:3] + 3*(ii-1)) - patchpoints);
 % plot3(patchquadraturepoints(1:3,1),patchquadraturepoints(1:3,2),patchquadraturepoints(1:3,3),'o')
 
-    [distances,cosfi] = GEOcalccosfi(internalmonopole,patchquadraturepoints,patchnvecs);
+    [distances,cosfi] = EDcalccosfi(internalmonopole,patchquadraturepoints,patchnvecs);
     pmono_patch = exp(-1i*k*distances)./distances;
     umono_radial_patch = pmono_patch/envdata.cair/envdata.rhoair.*(1 + 1./(1i*k*distances));
     umono_normal_patch = umono_normal_patch + quadweights(ii+1)*umono_radial_patch.*cosfi;    
@@ -97,7 +97,7 @@ for ii = 1:4
     patchquadraturepoints = patchpoints + quadshift*(patchedgemidpoint - patchpoints);
 %     plot3(patchquadraturepoints(1:3,1),patchquadraturepoints(1:3,2),patchquadraturepoints(1:3,3),'s')
 
-    [distances,cosfi] = GEOcalccosfi(internalmonopole,patchquadraturepoints,patchnvecs);
+    [distances,cosfi] = EDcalccosfi(internalmonopole,patchquadraturepoints,patchnvecs);
     pmono_patch = exp(-1i*k*distances)./distances;
     umono_radial_patch = pmono_patch/envdata.cair/envdata.rhoair.*(1 + 1./(1i*k*distances));
     umono_normal_patch = umono_normal_patch + quadweights(ii+5)*umono_radial_patch.*cosfi;    
