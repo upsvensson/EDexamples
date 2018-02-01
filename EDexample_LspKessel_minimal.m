@@ -1,14 +1,17 @@
 % EDexample_LspKessel_minimal.m
 %
 % This example calculates the frequency response of a simplified
-% loudspeaker. The loudspeaker is called "LspKessel" because the dimensions
+% loudspeaker. The loudspeaker is called "Kessel" because the dimensions
 % are taken from the paper "A simple theory of cabinet edge diffraction" by
-% John Vanderkooy, in JAES 39, pp. 923-933, 1991. That paper presented BEM
-% calculations done by R.T. Kessel.
+% John Vanderkooy, in JAES 39, pp. 923-933, 1991, which presented BEM
+% calculations done by R.T. Kessel (for his MSc thesis at the University of
+% Waterloo, Canada.
 %
 % A single point source is modeled, at a distance of 0.01 mm from the front
-% baffle. A receiver position is at a distance of 10 m, on-axis. These
-% positions were also taken from the paper by Vanderkooy.
+% baffle. A receiver position is at a distance of 1 m, on-axis. These
+% positions were also taken from the paper by Vanderkooy - except that here
+% we choose a 1 m distance instead of the 10 m distance in Vanderkooy's
+% paper.
 %
 % One purpose with this example is to demonstrate a minimal problem, to get
 % started. A number of parameters are not set in this file, but are given default
@@ -23,9 +26,10 @@
 %   - speed of sound: 344 m/s
 %
 % If you have set the path to the EDtoolbox folder, you should be able to
-% run this file and the calculations will get started. A folder called
-% "results" will be created inside the folder where this m-file is stored,
-% and results files will end up in that "results" folder.
+% run this script, the calculations will be carried out, and you will see
+% result plots. A folder called 'results' will be created inside the folder
+% where this m-file is stored, and results files will end up in that
+% 'results' folder.
 % 
 % The last part of this script, below the "%%%%%%%%%%%%%%%%%%%%" line,
 % presents the results in a diagram and plots the model.
@@ -51,19 +55,18 @@ planecorners = [   1     4     3     2
 
 geofiledata = struct('corners',corners,'planecorners',planecorners);
 Sindata = struct('coordinates',[0 0 0.00001]);
-Rindata = struct('coordinates',[0 0 10]);
-controlparameters = struct('frequencies',logspace(log10(50),log10(3000),100));
-filehandlingparameters = struct('outputdirectory',infilepath);
+Rindata = struct('coordinates',[0 0 1]);
+controlparameters = struct('frequencies',linspace(50,3000,100));
+filehandlingparameters = struct('outputdirectory',[infilepath,filesep,'results']);
 filehandlingparameters.filestem = filestem;
-filehandlingparameters.savelogfile = 1;
 
-EDmain_convexESIE(geofiledata,Sindata,Rindata,struct,controlparameters,filehandlingparameters);
+% EDmain_convexESIE(geofiledata,Sindata,Rindata,struct,controlparameters,filehandlingparameters);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Load and present the results
     
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tf.mat'])
+eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
+eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tf.mat'])
 
 tftot = tfdirect + tfgeom + tfdiff + tfinteqdiff;
 
@@ -71,10 +74,11 @@ figure
 semilogx(controlparameters.frequencies,20*log10(abs(tftot)),'-o')
 xlabel('Frequency   [Hz]')
 ylabel('TF magnitude re. 1m   [dB]')
-title('Frequency response of the Kessel loudspeaker')
+title('Frequency response of the Kessel loudspeaker, at 1m distance')
+axis([50 5000 0 10])
 grid
 
 figure
 eddatafile = [infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_eddata.mat'];
-EDplotmodel(eddatafile,1)
+EDplotmodel(eddatafile,3)
 
