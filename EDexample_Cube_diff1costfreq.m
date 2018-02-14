@@ -84,7 +84,7 @@ plot(frequencies,timingres,'-o')
 grid
 xlabel('Frequency   [Hz]')
 ylabel('Calculation time   [s]')
-title('Calculation time for first-order diffraction, for the cube, nS*nR = 100')
+title('Calculation time for first-order diffraction, for the cube, one frequency, nS*nR = 100')
 
 ylim([0 max(timingres)])
 
