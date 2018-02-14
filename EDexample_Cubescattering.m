@@ -65,7 +65,8 @@ Rindata = struct('coordinates',receivers);
 controlparameters = struct('frequencies',500);
 controlparameters.ngauss = 48;
 controlparameters.Rstart = soudist;
-filehandlingparameters = struct('outputdirectory',infilepath);
+filehandlingparameters = struct('outputdirectory',[infilepath,filesep,'results']);
+%filehandlingparameters.outputdirectory = [infilepath,filesep,'results'];
 filehandlingparameters.filestem = filestem;
 filehandlingparameters.savelogfile = 1;
 
@@ -74,8 +75,8 @@ EDmain_convexESIE(geofiledata,Sindata,Rindata,struct,controlparameters,filehandl
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Load and present the results
     
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tf.mat'])
+eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
+eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tf.mat'])
 
 tftot = soudist*(tfdirect + tfgeom + tfdiff + tfinteqdiff);
 

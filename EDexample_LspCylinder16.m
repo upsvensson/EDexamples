@@ -38,25 +38,23 @@ length = 2*radius;
 [corners,planecorners,ncorners,radius] = EDmakegeo_cylinder(radius,length,16,'e',1,0,-radius);
 
 geofiledata = struct('corners',corners,'planecorners',planecorners);
-geofiledata.planecornertype = 'zero';
 Sindata = struct('coordinates',[0 0 0.00001]);
 Rindata = struct('coordinates',[0 0 6.6]);
 controlparameters = struct('frequencies',linspace(50,4000,100));
 controlparameters.ngauss = 24;
-controlparameters.difforder = 50;
-filehandlingparameters = struct('outputdirectory',infilepath);
+controlparameters.difforder = 30;
+filehandlingparameters = struct('outputdirectory',[infilepath,filesep,'results']);
 filehandlingparameters.filestem = filestem;
-filehandlingparameters.savelogfile = 1;
 
 EDmain_convexESIE(geofiledata,Sindata,Rindata,struct,controlparameters,filehandlingparameters);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Load and present the results
     
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tf.mat'])
+eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
+eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tf.mat'])
 
-measdistance = norm(Sindata.coordinates-Rindata.coordinates)
+measdistance = norm(Sindata.coordinates-Rindata.coordinates);
 tftot = (tfdirect + tfgeom + tfdiff + tfinteqdiff)*measdistance;
 
 figure
@@ -69,4 +67,4 @@ axis([100 4000 -10 15])
 
 figure
 eddatafile = [infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_eddata.mat'];
-EDplotmodel(eddatafile,1+2)
+EDplotmodel(eddatafile,1)

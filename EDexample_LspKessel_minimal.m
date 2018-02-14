@@ -60,7 +60,7 @@ controlparameters = struct('frequencies',linspace(50,3000,100));
 filehandlingparameters = struct('outputdirectory',[infilepath,filesep,'results']);
 filehandlingparameters.filestem = filestem;
 
-% EDmain_convexESIE(geofiledata,Sindata,Rindata,struct,controlparameters,filehandlingparameters);
+EDmain_convexESIE(geofiledata,Sindata,Rindata,struct,controlparameters,filehandlingparameters);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Load and present the results
