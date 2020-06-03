@@ -46,8 +46,8 @@ for ii = 1:ncases
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Load and present the results
     
-    eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
-    eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tf.mat'])
+    eval(['load ''',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tfinteq.mat'''])
+    eval(['load ''',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tf.mat'''])
 
     tfdirect = tfdirect*soudist;
     tfgeom = tfgeom*soudist;
@@ -73,7 +73,7 @@ relerrF = abs( (allresF-refresF(:,ones(1,ncases)))./refresF(:,ones(1,ncases)) );
 elsize = (1./ngvec).';
 lambdavec = (envdata.cair./controlparameters.frequencies).';
 
-elperlambda = lambdavec(:,ones(1,ncases))./elsize(ones(nfreq,1),:);
+elperlambda = lambdavec(:,ones(1,ncases))./elsize(ones(nfrequencies,1),:);
 
 relerrR = reshape(relerrR,ncases*nfrequencies,1);
 relerrF = reshape(relerrF,ncases*nfrequencies,1);

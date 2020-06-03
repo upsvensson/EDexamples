@@ -52,6 +52,7 @@ controlparameters.difforder = 1;
 controlparameters.ngauss = 64;
 filehandlingparameters = struct('showtext',0);
 filehandlingparameters.outputdirectory = [infilepath,filesep,'results'];
+filehandlingparameters.suppressresultrecycling = 0;
 filehandlingparameters.savecadgeofile = 0;
 filehandlingparameters.saveeddatafile = 0;
 filehandlingparameters.saveSRdatafiles = 0;
@@ -59,7 +60,7 @@ filehandlingparameters.savelogfile = 0;
 filehandlingparameters.savesubmatrixdata = 0;
 filehandlingparameters.saveinteqsousigs = 0;
 filehandlingparameters.savediff2result = 0;
-filehandlingparameters.showtext = 0;
+filehandlingparameters.showtext = 1;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -75,7 +76,7 @@ for ii = 1:ncases
     
        EDmain_convexESIE(geofiledata,Sindata,Rindata,envdata,controlparameters,filehandlingparameters);        
 
-    eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tfinteq.mat timingstruct'])
+    eval(['load ''',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tfinteq.mat''','  timingstruct'])
 
     timingres(ii,:) = timingstruct.integralequation;
     

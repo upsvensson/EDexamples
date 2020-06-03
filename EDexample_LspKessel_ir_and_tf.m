@@ -20,7 +20,7 @@ planecorners = [   1     4     3     2
      1     5     8     4];
 
 geofiledata = struct('corners',corners,'planecorners',planecorners);
-Sindata = struct('coordinates',[0 0 0.0001]);
+Sindata = struct('coordinates',[0 0 0.01]);
 Rindata = struct('coordinates',[0 0 2]);
 controlparameters = struct('fs',48000);
 controlparameters.difforder = 3;
@@ -50,8 +50,8 @@ EDmain_convexESIE(geofiledata,Sindata,Rindata,struct,controlparameters,filehandl
 nreceivers = size(Rindata.coordinates,1);
 nsources = size(Sindata.coordinates,1);
 
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_ir.mat'])
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_irhod.mat'])
+eval(['load ''',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_ir.mat'''])
+eval(['load ''',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_irhod.mat'''])
 
 ncells = size(irhod,2);
 ntotlength = size(irhod{2},1);
@@ -66,8 +66,8 @@ allirtots(1:ndir,2) = irdiff;
 
 cumsumirtots = cumsum(allirtots.').';
 
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tf.mat'])
-eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
+eval(['load ''',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tf.mat'''])
+eval(['load ''',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tfinteq.mat'''])
 
 tftot = tfdirect + tfgeom + tfdiff + tfinteqdiff;
 
@@ -134,8 +134,8 @@ axis([20 20000 -8 4])
 % controlparameters.frequencies = fvec(1:50);
 % EDmain_convexESIE(geofiledata,Sindata,Rindata,struct,controlparameters,filehandlingparameters);
 % 
-% eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tf.mat'])
-% eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
+% eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tf.mat'''])
+% eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tfinteq.mat'''])
 % % 
 % tftot = tfdirect + tfgeom + tfdiff + tfinteqdiff;
 % 

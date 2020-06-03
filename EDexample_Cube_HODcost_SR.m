@@ -76,7 +76,7 @@ for ii = 1:ncases
     
      EDmain_convexESIE(geofiledata,Sindata,Rindata,envdata,controlparameters,filehandlingparameters);        
 
-    eval(['load ',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tfinteq.mat timingstruct'])
+    eval(['load ''',filehandlingparameters.outputdirectory,filesep,filehandlingparameters.filestem,'_tfinteq.mat''','  timingstruct'])
 
     timingres(ii,:) = timingstruct.integralequation;
     

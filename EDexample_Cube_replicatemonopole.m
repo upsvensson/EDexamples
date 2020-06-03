@@ -186,8 +186,8 @@ for kk = 1:length(nsurfelvec)
 
         % Load and analyze the results
 
-        eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tfinteq.mat'])
-        eval(['load ',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tf.mat'])
+        eval(['load ''',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tfinteq.mat'''])
+        eval(['load ''',infilepath,filesep,'results',filesep,filehandlingparameters.filestem,'_tf.mat'''])
 
         tftot = tfinteqdiff + tfdiff + tfdirect + tfgeom;
         tftot = tftot*receiverradius;
